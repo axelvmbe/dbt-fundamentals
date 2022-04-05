@@ -117,6 +117,17 @@ username: DBT_CLOUD_DEV
 password: abc123
 ```
 
-## Install docker
+## Run docker
 
-Install docker Desktop and `docker-compile`
+Install docker Desktop and `docker-compile`. Remember to keep Docker Desktop running in the background!
+
+### Commands
+
+```{bash}
+docker run --rm -v $(pwd):/usr/app -v $(pwd):/root/.dbt fishtownanalytics/dbt 1.0.0 run  
+docker run --rm -v $(pwd):/usr/app -v $(pwd):/root/.dbt fishtownanalytics/dbt 1.0.0 test
+docker run --rm -v $(pwd):/usr/app -v $(pwd):/root/.dbt fishtownanalytics/dbt 1.0.0 docs generate
+docker run --rm -ip 8080:8080 -v $(pwd):/usr/app -v $(pwd)/:/root/.dbt fishtownanalytics/dbt: 1.0.0 docs serve
+# Ctrl+C to exit
+docker run --rm -ip 8080:8080 -v $(pwd):/usr/app -v $(pwd)/:/root/.dbt fishtownanalytics/dbt: 1.0.0 clean
+```
