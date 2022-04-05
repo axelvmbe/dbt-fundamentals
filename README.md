@@ -32,7 +32,7 @@ For more detailed info see dbt's own [How we configure Snowflake](https://blog.g
 * `public` - All users starts with this set of user permissions
 * `loader` - Owns tables in the `raw` database and connects to `loading` DWH
 * `transformer` - Query permissions in `raw` and owns tables in `analytics`
-* `reporter` - Permissions on `analytics` *ONLY*
+* `reporter` - Permissions on `analytics` **ONLY**
 
 ## Configure the Snowflake DWH
 Log into Snowflake, open a worksheet and run the following commands as `ACCOUNTADMIN`. This creates the warehouses, databases, users and roles needed to follow best practices.
@@ -98,5 +98,25 @@ CREATE USER DBT_CLOUD_DEV PASSWORD='abc123' DEFAULT_ROLE = TRANSFORMER_DEV MUST_
 GRANT ROLE TRANSFORMER_DEV TO USER DBT_CLOUD_DEV;
 ```
 
+To add a new developer to the team you can just create a new user and grant them the `TRANSFORMER_DEV` role permission in Snowflake.
 
+### Logging in to PROD and DEV accounts
+Paste the correct host and domain name to be promted by login screen
+```
+https://your-host.your-region.snowflakecomputing.com/console/login?disableDirectLogin=true
+```
 
+Access to PROD
+```
+username: DBT_CLOUD
+password: abc123
+```
+Access to DEV
+```
+username: DBT_CLOUD_DEV
+password: abc123
+```
+
+## Install docker
+
+Install docker Desktop and `docker-compile`
