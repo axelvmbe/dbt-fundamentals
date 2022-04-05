@@ -5,6 +5,8 @@
     This will override configurations stated in dbt_project.yml
 
     Try changing "table" to "view" below
+
+    Commit again
 */
 
 {{ config(materialized='table') }}
