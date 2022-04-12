@@ -1,8 +1,60 @@
 # dbt_fundamentals
-
 ## Useful links
 * [Configure dbt on Snowflake with Docker](https://www.startdataengineering.com/post/cicd-dbt/)
 * [How we configure Snowflake](https://blog.getdbt.com/how-we-configure-snowflake/)
+
+# Setup/Get Started
+
+There are two options for you to get started with developing in dbt on your local machine.
+1. Python virtual environment
+2. Docker
+
+## Python virtual environment
+
+This procedure will be different for Mac and Windows.
+### Create dbt-env (Mac)
+Navigate to the root directory and run the following command to create the environment.
+```{bash}
+python3 -m venv dbt-env
+```
+You can read more about Python's virtual environments [here](https://docs.python-guide.org/dev/virtualenvs/). The basic principles is that an environment allows you to install everything you want for the versions you need without affecting any packages or modules on your local machine. To use it, it needs to be activated like this:
+```{bash}
+source dbt-env/bin/activate
+```
+To deactive the `dbt-env` simply run `deactivate` in the terminal. Run `source dbt-env/bin/activate` to get back to where you where:)
+
+Now, we need to install dbt and the packages needed to connect it to our DWH (in the case Snowflake). **Before installing**, double check that you see `(dbt-env)` at the leftmost side of your terminal line. This inidicates that you are in the active environment we want to work in.
+
+#### For Macs running Intel Chip
+```{bash}
+pip install dbt-core
+pip install dbt-snowflake
+```
+
+#### for Macs running 
+```{bash}
+pip install 'snowflake-connector-python[pandas,secure-local-storage]' --no-binary snowflake-connector-python
+```
+
+
+### Create dbt-env (Windows)
+
+## Docker
+
+If you struggle to get Python and pip to work with dbt, Docker is the safest option. However, it comes at a price of being a bit slower and the commands are more verbose.
+
+Install docker Desktop and `docker-compile`. Remember to keep Docker Desktop running in the background!
+
+### Commands
+
+```{bash}
+docker run --rm -v $(pwd):/usr/app -v $(pwd):/root/.dbt fishtownanalytics/dbt:1.0.0 run  
+docker run --rm -v $(pwd):/usr/app -v $(pwd):/root/.dbt fishtownanalytics/dbt:1.0.0 test
+docker run --rm -v $(pwd):/usr/app -v $(pwd):/root/.dbt fishtownanalytics/dbt:1.0.0 docs generate
+docker run --rm -ip 8080:8080 -v $(pwd):/usr/app -v $(pwd)/:/root/.dbt fishtownanalytics/dbt:1.0.0 docs serve
+# Ctrl+C to exit
+docker run --rm -ip 8080:8080 -v $(pwd):/usr/app -v $(pwd)/:/root/.dbt fishtownanalytics/dbt:1.0.0 clean
+```
 # Snowflake
 1. Go to Snowflake's [signup page](https://signup.snowflake.com/). Input your name, email, company and country.
 2. Choose "Enterprise" and AWS as cloud provider. You'll be given a 30 day free trial.
@@ -115,19 +167,4 @@ Access to DEV
 ```
 username: DBT_CLOUD_DEV
 password: abc123
-```
-
-## Run docker
-
-Install docker Desktop and `docker-compile`. Remember to keep Docker Desktop running in the background!
-
-### Commands
-
-```{bash}
-docker run --rm -v $(pwd):/usr/app -v $(pwd):/root/.dbt fishtownanalytics/dbt:1.0.0 run  
-docker run --rm -v $(pwd):/usr/app -v $(pwd):/root/.dbt fishtownanalytics/dbt:1.0.0 test
-docker run --rm -v $(pwd):/usr/app -v $(pwd):/root/.dbt fishtownanalytics/dbt:1.0.0 docs generate
-docker run --rm -ip 8080:8080 -v $(pwd):/usr/app -v $(pwd)/:/root/.dbt fishtownanalytics/dbt:1.0.0 docs serve
-# Ctrl+C to exit
-docker run --rm -ip 8080:8080 -v $(pwd):/usr/app -v $(pwd)/:/root/.dbt fishtownanalytics/dbt:1.0.0 clean
 ```
