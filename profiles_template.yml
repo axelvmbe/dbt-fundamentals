@@ -8,7 +8,7 @@ default:
 
     dev: # User-Password config
       type: snowflake
-      account: your-snowflake-account-id-here
+      account: your-host.your.region # ex: ab12345.eu-west-2
       user: DBT_CLOUD_DEV
       password: your-password-here
       role: TRANSFORMER_DEV
