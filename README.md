@@ -6,10 +6,10 @@
 # Setup/Get Started
 
 There are two options for you to get started with developing in dbt on your local machine.
-1. Python virtual environment
-2. Docker
+1. [Python virtual environment](##python-virtual-environment)
+2. [Docker](##docker)
 
-## 1. Python virtual environment
+## Python virtual environment
 
 Note that procedure will be different for Mac and Windows.
 ### Create dbt-env (Mac)
@@ -21,7 +21,7 @@ To check what version you're running:
 python3 --version
 ```
 
-If you get 3.6, 3.7 or 3.8 you're good to continue. If you're running 3.9 you can either try to downgrade the local version or simply use the [Docker method](##Docker).
+If you get 3.6, 3.7 or 3.8 you're good to continue. If you're running 3.9 you can either try to downgrade the local version or simply use the [Docker method](##docker).
 
 Navigate to the root directory and run the following command to create the environment.
 ```{bash}
