@@ -9,10 +9,20 @@ There are two options for you to get started with developing in dbt on your loca
 1. Python virtual environment
 2. Docker
 
-## Python virtual environment
+## 1. Python virtual environment
 
-This procedure will be different for Mac and Windows.
+Note that procedure will be different for Mac and Windows.
 ### Create dbt-env (Mac)
+
+It's **very important** that you use ==Python 3.6, 3.7 or 3.8== to create your environment. Python 3.9 is incompatible for M1 Mac as of Q2 2022.
+
+To check what version you're running:
+```{bash}
+python3 --version
+```
+
+If you get 3.6, 3.7 or 3.8 you're good to continue. If you're running 3.9 you can either try to downgrade the local version or simply use the [Docker method](##Docker).
+
 Navigate to the root directory and run the following command to create the environment.
 ```{bash}
 python3 -m venv dbt-env
@@ -25,16 +35,12 @@ To deactive the `dbt-env` simply run `deactivate` in the terminal. Run `source d
 
 Now, we need to install dbt and the packages needed to connect it to our DWH (in the case Snowflake). **Before installing**, double check that you see `(dbt-env)` at the leftmost side of your terminal line. This inidicates that you are in the active environment we want to work in.
 
-#### For Macs running Intel Chip
+### Install dbt in your new environment
 ```{bash}
 pip install dbt-core
 pip install dbt-snowflake
 ```
 
-#### for Macs running 
-```{bash}
-pip install 'snowflake-connector-python[pandas,secure-local-storage]' --no-binary snowflake-connector-python
-```
 
 
 ### Create dbt-env (Windows)
