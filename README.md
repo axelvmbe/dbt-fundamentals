@@ -6,13 +6,13 @@
 # Setup/Get Started
 
 There are two options for you to get started with developing in dbt on your local machine.
-1. [Python virtual environment](##python-virtual-environment)
-2. [Docker](##docker)
+1. [Docker](##docker) [SIMPLE AND EASY]
+2. [Python virtual environment](##python-virtual-environment) [ERROR PRONE]
 
 ## Python virtual environment
 
 Note that procedure will be different for Mac and Windows.
-### Create Environment Mac
+### Create Environment Mac/Linux
 
 It's **very important that you use Python 3.6, 3.7 or 3.8** to create your environment. Python 3.9 is incompatible for M1 Mac as of Q2 2022.
 
@@ -41,7 +41,24 @@ pip install dbt-core
 pip install dbt-snowflake
 ```
 
+### Configure `profiles.yml`
 
+#### Fix `profiles.template.yml`
+
+1. Open the `profiles_template.yml` file.
+2. Rename it to `profiles.yml`.
+3. Add `account`, example ab12345.eu-west-2.
+4. Add `password`.
+5. Add `schema`, example dbt_onordmann.
+6. Save `profiles.yml`
+#### Make dbt look for `profiles.yml` correctly
+
+Your local machine connects to Snowflake through dbt by using a `profiles.yml` file. dbt looks for this file in a default location and you can run `dbt debug --config-dir` to find out where that is. This is a bit impractical as we want dbt to look for a `profiles.yml` in the repository we're working in. Follow these two steps to make this happen:
+
+1. Check that the terminal is running from the `dbt-fundamentals` repository. You can verify this by inspecting the output from `pwd` on Mac.
+2. Run `export DBT_PROFILES_DIR=$(pwd)`. dbt will from now on look for `profiles.yml` in the repository.
+
+CONGRATULATIONS! You're ready to start working with dbt:)
 
 ### Create Environment Windows
 
@@ -66,6 +83,26 @@ docker run --rm -ip 8080:8080 -v $(pwd):/usr/app -v $(pwd)/:/root/.dbt fishtowna
 # Ctrl+C to exit
 docker run --rm -ip 8080:8080 -v $(pwd):/usr/app -v $(pwd)/:/root/.dbt fishtownanalytics/dbt:1.0.0 clean
 ```
+
+### Pro-tip (Mac/Linux only)
+If you think that the prefix `docker run --rm -v $(pwd):/usr/app -v $(pwd):/root/.dbt fishtownanalytics/dbt:1.0.0` is a bit too much there is a solution for you.
+
+You need to create and alias!
+
+#### Bash terminal
+1. Open the `.bash_profile` file. Usually `~/.bash_profile` on Mac.
+2. Add `alias docker_dbt='docker run --rm -v $(pwd):/usr/app -v $(pwd):/root/.dbt fishtownanalytics/dbt:1.0.0'`
+3. Run `source ~/.bash_profile`
+
+Use `docker_dbt` as prefix for all dbt commands.
+
+####  ZSH terminal
+1. Open the `.zshrc` file. Usually `~/.zshrc` on Mac.
+2. Add `alias docker_dbt='docker run --rm -v $(pwd):/usr/app -v $(pwd):/root/.dbt fishtownanalytics/dbt:1.0.0'`
+3. Run `source ~/.zshrc`
+
+Use `docker_dbt` as prefix for all dbt commands.
+
 # Snowflake
 1. Go to Snowflake's [signup page](https://signup.snowflake.com/). Input your name, email, company and country.
 2. Choose "Enterprise" and AWS as cloud provider. You'll be given a 30 day free trial.
